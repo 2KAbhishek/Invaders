@@ -54,5 +54,13 @@ int main(int argc, char *argv[])
     // Set tranparent black background foe window
     glClearColor(0.0, 0.0, 0.0, 0.7);
 
+    // Main game loop
+    while (!glfwWindowShouldClose(window))
+    {
+        glClear(GL_COLOR_BUFFER_BIT);
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+    }
+
     return 0;
 }
