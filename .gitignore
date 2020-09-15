@@ -1,5 +1,5 @@
-# Main game binary
-invaders
+# Binaries
+bin/
 
 # Object files
 *.o
