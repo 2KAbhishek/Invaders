@@ -51,8 +51,8 @@ int main(int argc, char *argv[])
     printf("Renderer used: %s\n", glGetString(GL_RENDERER));
     printf("Shading Language: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
 
-    // Set tranparent black background foe window
-    glClearColor(0.0, 0.0, 0.0, 0.7);
+    // Set tranparent blueish black background for window
+    glClearColor(0.0, 0.0, 0.05, 0.7);
 
     // Main game loop
     while (!glfwWindowShouldClose(window))
