@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 // Error callback required for GLFW
@@ -32,5 +33,13 @@ int main(int argc, char *argv[])
     }
     glfwMakeContextCurrent(window);
 
+    //  Initialize GLEW
+    GLenum err = glewInit();
+    if (err != GLEW_OK)
+    {
+        fprintf(stderr, "Error intializing GLEW, code: %d\n", err);
+        glfwTerminate();
+        return -1;
+    }
     return 0;
 }
