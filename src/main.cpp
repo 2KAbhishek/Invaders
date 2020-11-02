@@ -26,6 +26,10 @@ void buffer_clear(Buffer *buffer, uint32_t color)
 
 int main(int argc, char *argv[])
 {
+    // Buffer size
+    const size_t buffer_width = 640;
+    const size_t buffer_height = 480;
+
     glfwSetErrorCallback(error_callback);
 
     // Initialize GLFW
@@ -41,7 +45,7 @@ int main(int argc, char *argv[])
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     // Create Main Window
-    GLFWwindow *window = glfwCreateWindow(640, 480, "Invaders", NULL, NULL);
+    GLFWwindow *window = glfwCreateWindow(buffer_width, buffer_height, "Invaders", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
