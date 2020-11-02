@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <cstdint>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
@@ -6,6 +7,12 @@
 void error_callback(int error, const char *description)
 {
     fprintf(stderr, "Error : %s\n", description);
+}
+
+// Converts rgb to uint32
+uint32_t rgb_to_uint32(uint8_t r, uint8_t g, uint8_t b)
+{
+    return (r << 24) | (g << 16) | (b << 8) | 255;
 }
 
 int main(int argc, char *argv[])
