@@ -15,6 +15,15 @@ uint32_t rgb_to_uint32(uint8_t r, uint8_t g, uint8_t b)
     return (r << 24) | (g << 16) | (b << 8) | 255;
 }
 
+// Clear buffer
+void buffer_clear(Buffer *buffer, uint32_t color)
+{
+    for (size_t i = 0; i < buffer->width * buffer->height; ++i)
+    {
+        buffer->data[i] = color;
+    }
+}
+
 int main(int argc, char *argv[])
 {
     glfwSetErrorCallback(error_callback);
