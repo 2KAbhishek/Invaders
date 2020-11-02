@@ -3,6 +3,13 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+// Buffer
+struct Buffer
+{
+    size_t width, height;
+    uint32_t* data;
+};
+
 // Error callback required for GLFW
 void error_callback(int error, const char *description)
 {
