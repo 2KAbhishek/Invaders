@@ -81,6 +81,14 @@ int main(int argc, char *argv[])
     // Set tranparent blueish black background for window
     glClearColor(0.0, 0.0, 0.05, 0.7);
 
+    // Create graphics buffer
+    uint32_t clear_color = rgb_to_uint32(32, 128, 200);
+    Buffer buffer;
+    buffer.width = buffer.width;
+    buffer.height = buffer.height;
+    buffer.data = new uint32_t[buffer.width * buffer.height];
+    buffer_clear(&buffer, clear_color);
+
     // Main game loop
     while (!glfwWindowShouldClose(window))
     {
