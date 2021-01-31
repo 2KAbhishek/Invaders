@@ -872,6 +872,22 @@ int main(int argc, char *argv[])
                 --game.num_bullets;
                 continue;
             }
+
+            // Alien bullets
+            if (game.bullets[bi].dir < 0)
+            {
+                bool overlap = sprite_overlap_check(
+                    alien_bullet_sprite[0], game.bullets[bi].x, game.bullets[bi].y,
+                    player_sprite, game.player.x, game.player.y);
+
+                if (overlap)
+                {
+                    --game.player.life;
+                    game.bullets[bi] = game.bullets[game.num_bullets - 1];
+                    --game.num_bullets;
+                    break;
+                }
+            }
         }
 
         glfwDestroyWindow(window);
