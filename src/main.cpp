@@ -265,6 +265,29 @@ void buffer_draw_number(
     }
 }
 
+// Draw text
+void buffer_draw_text(
+    Buffer *buffer,
+    const Sprite &text_spritesheet,
+    const char *text,
+    size_t x, size_t y,
+    uint32_t color)
+{
+    size_t xp = x;
+    size_t stride = text_spritesheet.width * text_spritesheet.height;
+    Sprite sprite = text_spritesheet;
+    for (const char *charp = text; *charp != '\0'; ++charp)
+    {
+        char character = *charp - 32;
+        if (character < 0 || character >= 65)
+            continue;
+
+        sprite.data = text_spritesheet.data + character * stride;
+        buffer_draw_sprite(buffer, sprite, xp, y, color);
+        xp += sprite.width + 1;
+    }
+}
+
 int main(int argc, char *argv[])
 {
     // Buffer size
