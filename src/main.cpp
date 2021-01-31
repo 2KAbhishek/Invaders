@@ -1095,6 +1095,18 @@ int main(int argc, char *argv[])
                 }
             }
         }
+
+        // Process events
+        if (fire_pressed && game.num_bullets < GAME_MAX_BULLETS)
+        {
+            game.bullets[game.num_bullets].x = game.player.x + player_sprite.width / 2;
+            game.bullets[game.num_bullets].y = game.player.y + player_sprite.height;
+            game.bullets[game.num_bullets].dir = 2;
+            ++game.num_bullets;
+        }
+        fire_pressed = false;
+
+        glfwPollEvents();
     }
 
     glfwDestroyWindow(window);
