@@ -324,6 +324,19 @@ int main(int argc, char *argv[])
         "    outColor = texture(buffer, TexCoord).rgb;\n"
         "}\n";
 
+    GLuint shader_id = glCreateProgram();
+
+    //Create vertex shader
+    {
+        GLuint shader_vp = glCreateShader(GL_VERTEX_SHADER);
+        glShaderSource(shader_vp, 1, &vertex_shader, 0);
+        glCompileShader(shader_vp);
+        validate_shader(shader_vp, vertex_shader);
+        glAttachShader(shader_id, shader_vp);
+
+        glDeleteShader(shader_vp);
+    }
+
     // Main game loop
     while (!glfwWindowShouldClose(window))
     {
