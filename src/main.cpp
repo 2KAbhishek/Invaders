@@ -123,6 +123,12 @@ uint32_t xorshift32(uint32_t *rng)
     return x;
 }
 
+// Generate random rumber
+double random(uint32_t *rng)
+{
+    return (double)xorshift32(rng) / std::numeric_limits<uint32_t>::max();
+}
+
 // Buffer
 struct Buffer
 {
