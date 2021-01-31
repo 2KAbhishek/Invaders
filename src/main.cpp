@@ -565,6 +565,60 @@ int main(int argc, char *argv[])
     player_bullet_sprite.data = new uint8_t[3]{
         1, 1, 1};
 
+    // Alien bullet sprite
+    Sprite alien_bullet_sprite[2];
+    alien_bullet_sprite[0].width = 3;
+    alien_bullet_sprite[0].height = 7;
+    alien_bullet_sprite[0].data = new uint8_t[21]{
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+    };
+
+    alien_bullet_sprite[1].width = 3;
+    alien_bullet_sprite[1].height = 7;
+    alien_bullet_sprite[1].data = new uint8_t[21]{
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+    };
+
     // Main game loop
     while (!glfwWindowShouldClose(window))
     {
