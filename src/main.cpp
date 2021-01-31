@@ -159,6 +159,7 @@ struct Player
     size_t life;
 };
 
+// Main game struct
 #define GAME_MAX_BULLETS 128
 struct Game
 {
@@ -168,6 +169,16 @@ struct Game
     Alien *aliens;
     Player player;
     Bullet bullets[GAME_MAX_BULLETS];
+};
+
+// Sprite amimation with frames
+struct SpriteAnimation
+{
+    bool loop;
+    size_t num_frames;
+    size_t frame_duration;
+    size_t time;
+    Sprite **frames;
 };
 
 // Converts rgb to uint32
