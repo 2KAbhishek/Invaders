@@ -37,6 +37,23 @@ inline void gl_debug(const char *file, int line)
     }
 }
 
+#undef GL_ERROR_CASE
+
+// Validate shaders
+void validate_shader(GLuint shader, const char *file = 0)
+{
+    static const unsigned int BUFFER_SIZE = 512;
+    char buffer[BUFFER_SIZE];
+    GLsizei length = 0;
+
+    glGetShaderInfoLog(shader, BUFFER_SIZE, &length, buffer);
+
+    if (length > 0)
+    {
+        printf("Shader %d(%s) compile error: %s\n", shader, (file ? file : ""), buffer);
+    }
+}
+
 // Buffer
 struct Buffer
 {
