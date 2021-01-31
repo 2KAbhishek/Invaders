@@ -147,6 +147,12 @@ struct Alien
     uint8_t type;
 };
 
+struct Bullet
+{
+    size_t x, y;
+    int dir;
+};
+
 // Converts rgb to uint32
 uint32_t rgb_to_uint32(uint8_t r, uint8_t g, uint8_t b)
 {
