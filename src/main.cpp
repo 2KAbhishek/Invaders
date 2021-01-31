@@ -646,6 +646,26 @@ int main(int argc, char *argv[])
         alien_animation[i].frames[1] = &alien_sprites[2 * i + 1];
     }
 
+    // Main game
+    Game game;
+    game.width = buffer_width;
+    game.height = buffer_height;
+    game.num_bullets = 0;
+    game.num_aliens = 55;
+    game.aliens = new Alien[game.num_aliens];
+
+    game.player.x = 112 - 5;
+    game.player.y = 32;
+
+    game.player.life = 3;
+
+    size_t alien_swarm_position = 24;
+    size_t alien_swarm_max_position = game.width - 16 * 11 - 3;
+
+    size_t aliens_killed = 0;
+    size_t alien_update_timer = 0;
+    bool should_change_speed = false;
+
     // Main game loop
     while (!glfwWindowShouldClose(window))
     {
