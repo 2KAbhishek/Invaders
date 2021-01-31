@@ -1109,7 +1109,31 @@ int main(int argc, char *argv[])
         glfwPollEvents();
     }
 
+    // End game
     glfwDestroyWindow(window);
     glfwTerminate();
+
+    glDeleteVertexArrays(1, &fullscreen_triangle_vao);
+
+    for (size_t i = 0; i < 6; ++i)
+    {
+        delete[] alien_sprites[i].data;
+    }
+
+    delete[] text_spritesheet.data;
+    delete[] alien_death_sprite.data;
+    delete[] player_bullet_sprite.data;
+    delete[] alien_bullet_sprite[0].data;
+    delete[] alien_bullet_sprite[1].data;
+    delete[] alien_bullet_animation.frames;
+
+    for (size_t i = 0; i < 3; ++i)
+    {
+        delete[] alien_animation[i].frames;
+    }
+    delete[] buffer.data;
+    delete[] game.aliens;
+    delete[] death_counters;
+
     return 0;
 }
