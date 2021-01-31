@@ -347,6 +347,20 @@ int main(int argc, char *argv[])
 
         glDeleteShader(shader_fp);
     }
+
+    glLinkProgram(shader_id);
+
+    if (!validate_program(shader_id))
+    {
+        fprintf(stderr, "Error while validating shader.\n");
+        glfwTerminate();
+        glDeleteVertexArrays(1, &fullscreen_triangle_vao);
+        delete[] buffer.data;
+        return -1;
+    }
+
+    glUseProgram(shader_id);
+
     // Main game loop
     while (!glfwWindowShouldClose(window))
     {
