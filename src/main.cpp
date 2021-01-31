@@ -800,6 +800,20 @@ int main(int argc, char *argv[])
             sprintf(credit_text, "CREDIT %02lu", credits);
             buffer_draw_text(&buffer, text_spritesheet, credit_text, 164, 7, rgb_to_uint32(128, 0, 0));
         }
+
+        // Draw player lives
+        buffer_draw_number(&buffer, number_spritesheet, game.player.life, 4, 7, rgb_to_uint32(128, 0, 0));
+        size_t xp = 11 + number_spritesheet.width;
+        for (size_t i = 0; i < game.player.life - 1; ++i)
+        {
+            buffer_draw_sprite(&buffer, player_sprite, xp, 7, rgb_to_uint32(128, 0, 0));
+            xp += player_sprite.width + 2;
+        }
+
+        for (size_t i = 0; i < game.width; ++i)
+        {
+            buffer.data[game.width * 16 + i] = rgb_to_uint32(128, 0, 0);
+        }
     }
 
     glfwDestroyWindow(window);
