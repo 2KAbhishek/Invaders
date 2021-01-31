@@ -888,9 +888,41 @@ int main(int argc, char *argv[])
                     break;
                 }
             }
-        }
+            // Player bullets
+            else
+            {
+                // Check if player bullet hits an alien bullet
+                for (size_t bj = 0; bj < game.num_bullets; ++bj)
+                {
+                    if (bi == bj)
+                        continue;
 
-        glfwDestroyWindow(window);
-        glfwTerminate();
-        return 0;
-    }
+                    bool overlap = sprite_overlap_check(
+                        player_bullet_sprite, game.bullets[bi].x, game.bullets[bi].y,
+                        alien_bullet_sprite[0], game.bullets[bj].x, game.bullets[bj].y);
+
+                    if (overlap)
+                    {
+                        if (bj == game.num_bullets - 1)
+                        {
+                            game.bullets[bi] = game.bullets[game.num_bullets - 2];
+                        }
+                        else if (bi == game.num_bullets - 1)
+                        {
+                            game.bullets[bj] = game.bullets[game.num_bullets - 2];
+                        }
+                        else
+                        {
+                            game.bullets[(bi < bj) ? bi : bj] = game.bullets[game.num_bullets - 1];
+                            game.bullets[(bi < bj) ? bj : bi] = game.bullets[game.num_bullets - 2];
+                        }
+                        game.num_bullets -= 2;
+                        break;
+                    }
+                }
+            }
+
+            glfwDestroyWindow(window);
+            glfwTerminate();
+            return 0;
+        }
