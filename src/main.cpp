@@ -43,7 +43,7 @@ inline void gl_debug(const char *file, int line)
 
 #undef GL_ERROR_CASE
 
-// Validate shaders
+// Validate shader for errors
 void validate_shader(GLuint shader, const char *file = 0)
 {
     static const unsigned int BUFFER_SIZE = 512;
@@ -58,12 +58,23 @@ void validate_shader(GLuint shader, const char *file = 0)
     }
 }
 
-// Buffer
-struct Buffer
+// Validate program for errors
+bool validate_program(GLuint program)
 {
-    size_t width, height;
-    uint32_t *data;
-};
+    static const GLsizei BUFFER_SIZE = 512;
+    GLchar buffer[BUFFER_SIZE];
+    GLsizei length = 0;
+
+    glGetProgramInfoLog(program, BUFFER_SIZE, &length, buffer);
+
+    if (length > 0)
+    {
+        printf("Program %d link error: %s\n", program, buffer);
+        return false;
+    }
+
+    return true;
+}
 
 // Error callback required for GLFW
 void error_callback(int error, const char *description)
