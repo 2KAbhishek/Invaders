@@ -337,6 +337,16 @@ int main(int argc, char *argv[])
         glDeleteShader(shader_vp);
     }
 
+    //Create fragment shader
+    {
+        GLuint shader_fp = glCreateShader(GL_FRAGMENT_SHADER);
+        glShaderSource(shader_fp, 1, &fragment_shader, 0);
+        glCompileShader(shader_fp);
+        validate_shader(shader_fp, fragment_shader);
+        glAttachShader(shader_id, shader_fp);
+
+        glDeleteShader(shader_fp);
+    }
     // Main game loop
     while (!glfwWindowShouldClose(window))
     {
