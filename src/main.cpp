@@ -849,6 +849,9 @@ int main(int argc, char *argv[])
             }
             buffer_draw_sprite(&buffer, *sprite, bullet.x, bullet.y, rgb_to_uint32(128, 0, 0));
         }
+
+        // Draw player
+        buffer_draw_sprite(&buffer, player_sprite, game.player.x, game.player.y, rgb_to_uint32(128, 0, 0));
     }
 
     glfwDestroyWindow(window);
