@@ -920,9 +920,41 @@ int main(int argc, char *argv[])
                         break;
                     }
                 }
-            }
+                // Check hit
+                for (size_t ai = 0; ai < game.num_aliens; ++ai)
+                {
+                    const Alien &alien = game.aliens[ai];
+                    if (alien.type == ALIEN_DEAD)
+                        continue;
 
-            glfwDestroyWindow(window);
-            glfwTerminate();
-            return 0;
+                    const SpriteAnimation &animation = alien_animation[alien.type - 1];
+                    size_t current_frame = animation.time / animation.frame_duration;
+                    const Sprite &alien_sprite = *animation.frames[current_frame];
+                    bool overlap = sprite_overlap_check(
+                        player_bullet_sprite, game.bullets[bi].x, game.bullets[bi].y,
+                        alien_sprite, alien.x, alien.y);
+
+                    if (overlap)
+                    {
+                        score += 10 * (4 - game.aliens[ai].type);
+                        game.aliens[ai].type = ALIEN_DEAD;
+                        // Recenter death sprite
+                        game.aliens[ai].x -= (alien_death_sprite.width - alien_sprite.width) / 2;
+                        game.bullets[bi] = game.bullets[game.num_bullets - 1];
+                        --game.num_bullets;
+                        ++aliens_killed;
+
+                        if (aliens_killed % 15 == 0)
+                            should_change_speed = true;
+
+                        break;
+                    }
+                }
+            }
         }
+    }
+
+    glfwDestroyWindow(window);
+    glfwTerminate();
+    return 0;
+}
