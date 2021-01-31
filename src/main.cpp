@@ -767,11 +767,28 @@ int main(int argc, char *argv[])
     int player_move_dir = 0;
 
     // Main game loop
-    while (!glfwWindowShouldClose(window))
+    while (!glfwWindowShouldClose(window) && game_running)
     {
-        glClear(GL_COLOR_BUFFER_BIT);
-        glfwSwapBuffers(window);
-        glfwPollEvents();
+        buffer_clear(&buffer, clear_color);
+        // Game over lwhen player life is 0
+        if (game.player.life == 0)
+        {
+
+            buffer_draw_text(&buffer, text_spritesheet, "GAME OVER", game.width / 2 - 30, game.height / 2, rgb_to_uint32(128, 0, 0));
+            buffer_draw_text(&buffer, text_spritesheet, "SCORE", 4, game.height - text_spritesheet.height - 7, rgb_to_uint32(128, 0, 0));
+            buffer_draw_number(&buffer, number_spritesheet, score, 4 + 2 * number_spritesheet.width, game.height - 2 * number_spritesheet.height - 12, rgb_to_uint32(128, 0, 0));
+
+            glTexSubImage2D(
+                GL_TEXTURE_2D, 0, 0, 0,
+                buffer.width, buffer.height,
+                GL_RGBA, GL_UNSIGNED_INT_8_8_8_8,
+                buffer.data);
+            glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+            glfwSwapBuffers(window);
+            glfwPollEvents();
+            continue;
+        }
     }
 
     glfwDestroyWindow(window);
