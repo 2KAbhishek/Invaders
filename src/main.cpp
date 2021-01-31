@@ -262,9 +262,12 @@ int main(int argc, char *argv[])
     glGetIntegerv(GL_MAJOR_VERSION, &glVersion[0]);
     glGetIntegerv(GL_MINOR_VERSION, &glVersion[1]);
 
+    gl_debug(__FILE__, __LINE__);
+
     printf("Using OpenGL: %d.%d\n", glVersion[0], glVersion[1]);
     printf("Renderer used: %s\n", glGetString(GL_RENDERER));
     printf("Shading Language: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+    glfwSwapInterval(1);
 
     // Set tranparent blueish black background for window
     glClearColor(0.0, 0.0, 0.05, 0.7);
@@ -275,7 +278,18 @@ int main(int argc, char *argv[])
     buffer.width = buffer.width;
     buffer.height = buffer.height;
     buffer.data = new uint32_t[buffer.width * buffer.height];
+
     buffer_clear(&buffer, clear_color);
+
+    // Create texture for presenting buffer to OpenGL
+    GLuint buffer_texture;
+    glGenTextures(1, &buffer_texture);
+    glBindTexture(GL_TEXTURE_2D, buffer_texture);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, buffer.width, buffer.height, 0, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, buffer.data);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
     // OpenGL vertex shader
     const char *vertex_shader =
