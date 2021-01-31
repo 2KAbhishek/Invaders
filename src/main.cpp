@@ -129,11 +129,16 @@ double random(uint32_t *rng)
     return (double)xorshift32(rng) / std::numeric_limits<uint32_t>::max();
 }
 
-// Buffer
 struct Buffer
 {
     size_t width, height;
     uint32_t *data;
+};
+
+struct Sprite
+{
+    size_t width, height;
+    uint8_t *data;
 };
 
 // Converts rgb to uint32
