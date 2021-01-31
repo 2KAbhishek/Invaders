@@ -789,6 +789,10 @@ int main(int argc, char *argv[])
             glfwPollEvents();
             continue;
         }
+
+        // Draw score
+        buffer_draw_text(&buffer, text_spritesheet, "SCORE", 4, game.height - text_spritesheet.height - 7, rgb_to_uint32(128, 0, 0));
+        buffer_draw_number(&buffer, number_spritesheet, score, 4 + 2 * number_spritesheet.width, game.height - 2 * number_spritesheet.height - 12, rgb_to_uint32(128, 0, 0));
     }
 
     glfwDestroyWindow(window);
