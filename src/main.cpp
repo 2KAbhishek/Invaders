@@ -371,6 +371,38 @@ int main(int argc, char *argv[])
 
     glBindVertexArray(fullscreen_triangle_vao);
 
+    // Alien Sprites
+    Sprite alien_sprites[6];
+
+    alien_sprites[0].width = 8;
+    alien_sprites[0].height = 8;
+    alien_sprites[0].data = new uint8_t[64]
+    {
+        0,0,0,1,1,0,0,0, // ...@@...
+        0,0,1,1,1,1,0,0, // ..@@@@..
+        0,1,1,1,1,1,1,0, // .@@@@@@.
+        1,1,0,1,1,0,1,1, // @@.@@.@@
+        1,1,1,1,1,1,1,1, // @@@@@@@@
+        0,1,0,1,1,0,1,0, // .@.@@.@.
+        1,0,0,0,0,0,0,1, // @......@
+        0,1,0,0,0,0,1,0  // .@....@.
+    };
+
+    alien_sprites[1].width = 8;
+    alien_sprites[1].height = 8;
+    alien_sprites[1].data = new uint8_t[64]
+    {
+        0,0,0,1,1,0,0,0, // ...@@...
+        0,0,1,1,1,1,0,0, // ..@@@@..
+        0,1,1,1,1,1,1,0, // .@@@@@@.
+        1,1,0,1,1,0,1,1, // @@.@@.@@
+        1,1,1,1,1,1,1,1, // @@@@@@@@
+        0,0,1,0,0,1,0,0, // ..@..@..
+        0,1,0,1,1,0,1,0, // .@.@@.@.
+        1,0,1,0,0,1,0,1  // @.@..@.@
+    };
+
+
     // Main game loop
     while (!glfwWindowShouldClose(window))
     {
