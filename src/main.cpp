@@ -222,16 +222,14 @@ bool sprite_overlap_check(
 int main(int argc, char *argv[])
 {
     // Buffer size
-    const size_t buffer_width = 640;
-    const size_t buffer_height = 480;
+    const size_t buffer_width = 224;
+    const size_t buffer_height = 256;
 
     glfwSetErrorCallback(error_callback);
 
     // Initialize GLFW
     if (!glfwInit())
-    {
         return -1;
-    }
 
     // Hints to make GLFW use OpenGL context version 3.3 or higher
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -246,6 +244,8 @@ int main(int argc, char *argv[])
         glfwTerminate();
         return -1;
     }
+    // Handle kyboard inputs
+    glfwSetKeyCallback(window, key_callback);
     glfwMakeContextCurrent(window);
 
     //  Initialize GLEW
