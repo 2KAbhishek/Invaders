@@ -129,6 +129,12 @@ double random(uint32_t *rng)
     return (double)xorshift32(rng) / std::numeric_limits<uint32_t>::max();
 }
 
+// Converts rgb to uint32
+uint32_t rgb_to_uint32(uint8_t r, uint8_t g, uint8_t b)
+{
+    return (r << 24) | (g << 16) | (b << 8) | 255;
+}
+
 struct Buffer
 {
     size_t width, height;
@@ -190,12 +196,6 @@ enum AlienType : uint8_t
     ALIEN_TYPE_C = 3
 };
 
-// Converts rgb to uint32
-uint32_t rgb_to_uint32(uint8_t r, uint8_t g, uint8_t b)
-{
-    return (r << 24) | (g << 16) | (b << 8) | 255;
-}
-
 // Clear buffer
 void buffer_clear(Buffer *buffer, uint32_t color)
 {
@@ -203,6 +203,20 @@ void buffer_clear(Buffer *buffer, uint32_t color)
     {
         buffer->data[i] = color;
     }
+}
+
+// Check if sprite boxes are overlapping
+bool sprite_overlap_check(
+    const Sprite &sp_a, size_t x_a, size_t y_a,
+    const Sprite &sp_b, size_t x_b, size_t y_b)
+{
+    if (x_a < x_b + sp_b.width && x_a + sp_a.width > x_b &&
+        y_a < y_b + sp_b.height && y_a + sp_a.height > y_b)
+    {
+        return true;
+    }
+
+    return false;
 }
 
 int main(int argc, char *argv[])
