@@ -834,6 +834,21 @@ int main(int argc, char *argv[])
                 buffer_draw_sprite(&buffer, sprite, alien.x, alien.y, rgb_to_uint32(128, 0, 0));
             }
         }
+
+        // Draw bullets
+        for (size_t bi = 0; bi < game.num_bullets; ++bi)
+        {
+            const Bullet &bullet = game.bullets[bi];
+            const Sprite *sprite;
+            if (bullet.dir > 0)
+                sprite = &player_bullet_sprite;
+            else
+            {
+                size_t cf = alien_bullet_animation.time / alien_bullet_animation.frame_duration;
+                sprite = &alien_bullet_sprite[cf];
+            }
+            buffer_draw_sprite(&buffer, *sprite, bullet.x, bullet.y, rgb_to_uint32(128, 0, 0));
+        }
     }
 
     glfwDestroyWindow(window);
