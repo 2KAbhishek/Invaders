@@ -236,6 +236,35 @@ void buffer_draw_sprite(Buffer *buffer, const Sprite &sprite, size_t x, size_t y
     }
 }
 
+// Draw numbers
+void buffer_draw_number(
+    Buffer *buffer,
+    const Sprite &number_spritesheet, size_t number,
+    size_t x, size_t y,
+    uint32_t color)
+{
+    uint8_t digits[64];
+    size_t num_digits = 0;
+
+    size_t current_number = number;
+    do
+    {
+        digits[num_digits++] = current_number % 10;
+        current_number = current_number / 10;
+    } while (current_number > 0);
+
+    size_t xp = x;
+    size_t stride = number_spritesheet.width * number_spritesheet.height;
+    Sprite sprite = number_spritesheet;
+    for (size_t i = 0; i < num_digits; ++i)
+    {
+        uint8_t digit = digits[num_digits - i - 1];
+        sprite.data = number_spritesheet.data + digit * stride;
+        buffer_draw_sprite(buffer, sprite, xp, y, color);
+        xp += sprite.width + 1;
+    }
+}
+
 int main(int argc, char *argv[])
 {
     // Buffer size
