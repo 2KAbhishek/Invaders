@@ -141,6 +141,12 @@ struct Sprite
     uint8_t *data;
 };
 
+struct Alien
+{
+    size_t x, y;
+    uint8_t type;
+};
+
 // Converts rgb to uint32
 uint32_t rgb_to_uint32(uint8_t r, uint8_t g, uint8_t b)
 {
