@@ -111,6 +111,18 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
         break;
     }
 }
+
+// Shift ranges
+uint32_t xorshift32(uint32_t *rng)
+{
+    uint32_t x = *rng;
+    x ^= x << 13;
+    x ^= x >> 17;
+    x ^= x << 5;
+    *rng = x;
+    return x;
+}
+
 // Buffer
 struct Buffer
 {
