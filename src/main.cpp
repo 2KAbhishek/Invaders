@@ -4,6 +4,10 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#define GL_ERROR_CASE(glerror) \
+    case glerror:              \
+        snprintf(error, sizeof(error), "%s", #glerror)
+
 // Buffer
 struct Buffer
 {
