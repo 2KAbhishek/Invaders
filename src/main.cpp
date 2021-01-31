@@ -159,6 +159,17 @@ struct Player
     size_t life;
 };
 
+#define GAME_MAX_BULLETS 128
+struct Game
+{
+    size_t width, height;
+    size_t num_aliens;
+    size_t num_bullets;
+    Alien *aliens;
+    Player player;
+    Bullet bullets[GAME_MAX_BULLETS];
+};
+
 // Converts rgb to uint32
 uint32_t rgb_to_uint32(uint8_t r, uint8_t g, uint8_t b)
 {
