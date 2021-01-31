@@ -965,15 +965,56 @@ int main(int argc, char *argv[])
         }
 
         // Update death counters
-        for(size_t ai = 0; ai < game.num_aliens; ++ai)
+        for (size_t ai = 0; ai < game.num_aliens; ++ai)
         {
-            const Alien& alien = game.aliens[ai];
-            if(alien.type == ALIEN_DEAD && death_counters[ai])
+            const Alien &alien = game.aliens[ai];
+            if (alien.type == ALIEN_DEAD && death_counters[ai])
             {
                 --death_counters[ai];
             }
         }
 
+        // Update aliens
+        if (alien_update_timer >= alien_update_frequency)
+        {
+            alien_update_timer = 0;
+
+            if ((int)alien_swarm_position + alien_move_dir < 0)
+            {
+                alien_move_dir *= -1;
+
+                for (size_t ai = 0; ai < game.num_aliens; ++ai)
+                {
+                    Alien &alien = game.aliens[ai];
+                    alien.y -= 8;
+                }
+            }
+            else if (alien_swarm_position > alien_swarm_max_position - alien_move_dir)
+            {
+                alien_move_dir *= -1;
+            }
+            alien_swarm_position += alien_move_dir;
+
+            for (size_t ai = 0; ai < game.num_aliens; ++ai)
+            {
+                Alien &alien = game.aliens[ai];
+                alien.x += alien_move_dir;
+            }
+
+            if (aliens_killed < game.num_aliens)
+            {
+                size_t rai = game.num_aliens * random(&rng);
+                while (game.aliens[rai].type == ALIEN_DEAD)
+                {
+                    rai = game.num_aliens * random(&rng);
+                }
+                const Sprite &alien_sprite = *alien_animation[game.aliens[rai].type - 1].frames[0];
+                game.bullets[game.num_bullets].x = game.aliens[rai].x + alien_sprite.width / 2;
+                game.bullets[game.num_bullets].y = game.aliens[rai].y - alien_bullet_sprite[0].height;
+                game.bullets[game.num_bullets].dir = -2;
+                ++game.num_bullets;
+            }
+        }
     }
 
     glfwDestroyWindow(window);
