@@ -814,6 +814,26 @@ int main(int argc, char *argv[])
         {
             buffer.data[game.width * 16 + i] = rgb_to_uint32(128, 0, 0);
         }
+
+        // Draw aliens
+        for (size_t ai = 0; ai < game.num_aliens; ++ai)
+        {
+            if (death_counters[ai] == 0)
+                continue;
+
+            const Alien &alien = game.aliens[ai];
+            if (alien.type == ALIEN_DEAD)
+            {
+                buffer_draw_sprite(&buffer, alien_death_sprite, alien.x, alien.y, rgb_to_uint32(128, 0, 0));
+            }
+            else
+            {
+                const SpriteAnimation &animation = alien_animation[alien.type - 1];
+                size_t current_frame = animation.time / animation.frame_duration;
+                const Sprite &sprite = *animation.frames[current_frame];
+                buffer_draw_sprite(&buffer, sprite, alien.x, alien.y, rgb_to_uint32(128, 0, 0));
+            }
+        }
     }
 
     glfwDestroyWindow(window);
