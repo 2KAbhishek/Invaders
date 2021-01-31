@@ -181,6 +181,15 @@ struct SpriteAnimation
     Sprite **frames;
 };
 
+// Different Alien types
+enum AlienType : uint8_t
+{
+    ALIEN_DEAD = 0,
+    ALIEN_TYPE_A = 1,
+    ALIEN_TYPE_B = 2,
+    ALIEN_TYPE_C = 3
+};
+
 // Converts rgb to uint32
 uint32_t rgb_to_uint32(uint8_t r, uint8_t g, uint8_t b)
 {
