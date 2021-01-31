@@ -558,6 +558,13 @@ int main(int argc, char *argv[])
     Sprite number_spritesheet = text_spritesheet;
     number_spritesheet.data += 16 * 35;
 
+    // Player bullet sprite
+    Sprite player_bullet_sprite;
+    player_bullet_sprite.width = 1;
+    player_bullet_sprite.height = 3;
+    player_bullet_sprite.data = new uint8_t[3]{
+        1, 1, 1};
+
     // Main game loop
     while (!glfwWindowShouldClose(window))
     {
