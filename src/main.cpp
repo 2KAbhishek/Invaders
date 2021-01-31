@@ -342,7 +342,6 @@ int main(int argc, char *argv[])
     glClearColor(0.0, 0.0, 0.05, 0.7);
 
     // Create graphics buffer
-    uint32_t clear_color = rgb_to_uint32(32, 128, 200);
     Buffer buffer;
     buffer.width = buffer.width;
     buffer.height = buffer.height;
@@ -734,6 +733,38 @@ int main(int argc, char *argv[])
     size_t aliens_killed = 0;
     size_t alien_update_timer = 0;
     bool should_change_speed = false;
+
+    for (size_t xi = 0; xi < 11; ++xi)
+    {
+        for (size_t yi = 0; yi < 5; ++yi)
+        {
+            Alien &alien = game.aliens[xi * 5 + yi];
+            alien.type = (5 - yi) / 2 + 1;
+
+            const Sprite &sprite = alien_sprites[2 * (alien.type - 1)];
+
+            alien.x = 16 * xi + alien_swarm_position + (alien_death_sprite.width - sprite.width) / 2;
+            alien.y = 17 * yi + 128;
+        }
+    }
+
+    uint8_t *death_counters = new uint8_t[game.num_aliens];
+    for (size_t i = 0; i < game.num_aliens; ++i)
+    {
+        death_counters[i] = 10;
+    }
+
+    uint32_t clear_color = rgb_to_uint32(32, 128, 200);
+    uint32_t rng = 13;
+
+    int alien_move_dir = 4;
+
+    size_t score = 0;
+    size_t credits = 0;
+
+    game_running = true;
+
+    int player_move_dir = 0;
 
     // Main game loop
     while (!glfwWindowShouldClose(window))
