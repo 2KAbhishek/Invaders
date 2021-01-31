@@ -361,6 +361,16 @@ int main(int argc, char *argv[])
 
     glUseProgram(shader_id);
 
+    //  Initialize GLint
+    GLint location = glGetUniformLocation(shader_id, "buffer");
+    glUniform1i(location, 0);
+
+    //OpenGL setup
+    glDisable(GL_DEPTH_TEST);
+    glActiveTexture(GL_TEXTURE0);
+
+    glBindVertexArray(fullscreen_triangle_vao);
+
     // Main game loop
     while (!glfwWindowShouldClose(window))
     {
