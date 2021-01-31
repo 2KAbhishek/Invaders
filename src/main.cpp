@@ -861,9 +861,20 @@ int main(int argc, char *argv[])
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
         glfwSwapBuffers(window);
-    }
 
-    glfwDestroyWindow(window);
-    glfwTerminate();
-    return 0;
-}
+        // Simulate bullets
+        for (size_t bi = 0; bi < game.num_bullets; ++bi)
+        {
+            game.bullets[bi].y += game.bullets[bi].dir;
+            if (game.bullets[bi].y >= game.height || game.bullets[bi].y < player_bullet_sprite.height)
+            {
+                game.bullets[bi] = game.bullets[game.num_bullets - 1];
+                --game.num_bullets;
+                continue;
+            }
+        }
+
+        glfwDestroyWindow(window);
+        glfwTerminate();
+        return 0;
+    }
