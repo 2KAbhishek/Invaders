@@ -619,6 +619,33 @@ int main(int argc, char *argv[])
         0,
     };
 
+    // Sprite animations
+    SpriteAnimation alien_bullet_animation;
+    alien_bullet_animation.loop = true;
+    alien_bullet_animation.num_frames = 2;
+    alien_bullet_animation.frame_duration = 5;
+    alien_bullet_animation.time = 0;
+
+    alien_bullet_animation.frames = new Sprite *[2];
+    alien_bullet_animation.frames[0] = &alien_bullet_sprite[0];
+    alien_bullet_animation.frames[1] = &alien_bullet_sprite[1];
+
+    SpriteAnimation alien_animation[3];
+
+    size_t alien_update_frequency = 120;
+
+    for (size_t i = 0; i < 3; ++i)
+    {
+        alien_animation[i].loop = true;
+        alien_animation[i].num_frames = 2;
+        alien_animation[i].frame_duration = alien_update_frequency;
+        alien_animation[i].time = 0;
+
+        alien_animation[i].frames = new Sprite *[2];
+        alien_animation[i].frames[0] = &alien_sprites[2 * i];
+        alien_animation[i].frames[1] = &alien_sprites[2 * i + 1];
+    }
+
     // Main game loop
     while (!glfwWindowShouldClose(window))
     {
