@@ -1015,6 +1015,23 @@ int main(int argc, char *argv[])
                 ++game.num_bullets;
             }
         }
+
+        // Update animations
+        for (size_t i = 0; i < 3; ++i)
+        {
+            ++alien_animation[i].time;
+            if (alien_animation[i].time >= alien_animation[i].num_frames * alien_animation[i].frame_duration)
+            {
+                alien_animation[i].time = 0;
+            }
+        }
+        ++alien_bullet_animation.time;
+        if (alien_bullet_animation.time >= alien_bullet_animation.num_frames * alien_bullet_animation.frame_duration)
+        {
+            alien_bullet_animation.time = 0;
+        }
+
+        ++alien_update_timer;
     }
 
     glfwDestroyWindow(window);
