@@ -963,6 +963,17 @@ int main(int argc, char *argv[])
                 alien_animation[i].frame_duration = alien_update_frequency;
             }
         }
+
+        // Update death counters
+        for(size_t ai = 0; ai < game.num_aliens; ++ai)
+        {
+            const Alien& alien = game.aliens[ai];
+            if(alien.type == ALIEN_DEAD && death_counters[ai])
+            {
+                --death_counters[ai];
+            }
+        }
+
     }
 
     glfwDestroyWindow(window);
