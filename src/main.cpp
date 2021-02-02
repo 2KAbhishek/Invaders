@@ -307,7 +307,7 @@ int main(int argc, char *argv[])
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     // Create Main Window
-    GLFWwindow *window = glfwCreateWindow(buffer_width, buffer_height, "Invaders", NULL, NULL);
+    GLFWwindow *window = glfwCreateWindow(2 * buffer_width, 2 * buffer_height, "Invaders", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -347,7 +347,7 @@ int main(int argc, char *argv[])
     buffer.height = buffer.height;
     buffer.data = new uint32_t[buffer.width * buffer.height];
 
-    buffer_clear(&buffer, clear_color);
+    buffer_clear(&buffer, 0);
 
     // Create texture for presenting buffer to OpenGL
     GLuint buffer_texture;
@@ -364,7 +364,7 @@ int main(int argc, char *argv[])
     glGenVertexArrays(1, &fullscreen_triangle_vao);
 
     // OpenGL vertex shader
-    const char *vertex_shader =
+    static const char *vertex_shader =
         "\n"
         "#version 330\n"
         "\n"
@@ -379,7 +379,7 @@ int main(int argc, char *argv[])
         "}\n";
 
     // OpenGL fragment shader
-    const char *fragment_shader =
+    static const char *fragment_shader =
         "\n"
         "#version 330\n"
         "\n"
