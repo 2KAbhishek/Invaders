@@ -12,3 +12,6 @@ invaders: bin
 bin:
 	mkdir -p $@
 
+debug: bin
+	$(CC) $(CFLAGS) -g $(SRC) -o ./bin/$@
+
