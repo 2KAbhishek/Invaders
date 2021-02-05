@@ -288,6 +288,7 @@ void buffer_draw_text(
     }
 }
 
+// Main method
 int main(int argc, char *argv[])
 {
     // Buffer size
@@ -363,6 +364,20 @@ int main(int argc, char *argv[])
     GLuint fullscreen_triangle_vao;
     glGenVertexArrays(1, &fullscreen_triangle_vao);
 
+    // OpenGL fragment shader
+    static const char *fragment_shader =
+        "\n"
+        "#version 330\n"
+        "\n"
+        "uniform sampler2D buffer;\n"
+        "noperspective in vec2 TexCoord;\n"
+        "\n"
+        "out vec3 outColor;\n"
+        "\n"
+        "void main(void){\n"
+        "    outColor = texture(buffer, TexCoord).rgb;\n"
+        "}\n";
+
     // OpenGL vertex shader
     static const char *vertex_shader =
         "\n"
@@ -376,20 +391,6 @@ int main(int argc, char *argv[])
         "    TexCoord.y = (gl_VertexID == 1)? 2.0: 0.0;\n"
         "    \n"
         "    gl_Position = vec4(2.0 * TexCoord - 1.0, 0.0, 1.0);\n"
-        "}\n";
-
-    // OpenGL fragment shader
-    static const char *fragment_shader =
-        "\n"
-        "#version 330\n"
-        "\n"
-        "uniform sampler2D buffer;\n"
-        "noperspective in vec2 TexCoord;\n"
-        "\n"
-        "out vec3 outColor;\n"
-        "\n"
-        "void main(void){\n"
-        "    outColor = texture(buffer, TexCoord).rgb;\n"
         "}\n";
 
     GLuint shader_id = glCreateProgram();
