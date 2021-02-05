@@ -344,8 +344,8 @@ int main(int argc, char *argv[])
 
     // Create graphics buffer
     Buffer buffer;
-    buffer.width = buffer.width;
-    buffer.height = buffer.height;
+    buffer.width = buffer_width;
+    buffer.height = buffer_height;
     buffer.data = new uint32_t[buffer.width * buffer.height];
 
     buffer_clear(&buffer, 0);
