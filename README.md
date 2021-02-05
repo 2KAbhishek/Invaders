@@ -42,7 +42,9 @@ OPTIONS:
 ### To-Do
 
 - [x] Setup repo
-- [ ] Think real hard
-- [ ] Start typing
+- [x] Make game
+- [ ] Tweak colors
+- [ ] Add player explosion
+- [ ] Update readme with screenshots
 
 ### More Info
